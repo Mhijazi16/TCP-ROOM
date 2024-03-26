@@ -14,3 +14,10 @@ clients: list[socket.socket] = []
 def broadcast(message): 
     for client in clients: 
         client.send(message.encode('ascii'))
+
+def handle(client):
+    while True: 
+        message = client.recv(1024).decode()
+        if message == "close" : 
+            break
+        broadcast(message)
