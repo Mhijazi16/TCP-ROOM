@@ -11,3 +11,6 @@ print("SERVER IS LISTENING !!!")
 nicknames: list[str] = []
 clients: list[socket.socket] = []
 
+def broadcast(message): 
+    for client in clients: 
+        client.send(message.encode('ascii'))
