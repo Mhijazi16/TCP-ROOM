@@ -21,3 +21,19 @@ def handle(client):
         if message == "close" : 
             break
         broadcast(message)
+
+def accept_clients(): 
+    while True: 
+        client, address = server.accept()
+        clients.append(client)
+        print(f"{address} connected to server.")
+        client.send("NICK".encode('ascii'))
+        name = client.recv(1024).decode()
+        nicknames.append(name)
+
+        print(f"{name} joined the server!!")
+
+        thread = threading.Thread(target=handle,args=(client,))
+        thread.start()
+
+accept_clients()
