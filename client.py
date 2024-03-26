@@ -13,3 +13,10 @@ def send():
             client.send(val.encode('ascii'))
         message = f"[{name}]: {val}"
         client.send(message.encode('ascii'))
+
+def recive():
+    while True: 
+        message = client.recv(1024).decode()
+        if message == "NICK": 
+            client.send(name.encode('ascii'))
+        print(message)
