@@ -20,3 +20,9 @@ def recive():
         if message == "NICK": 
             client.send(name.encode('ascii'))
         print(message)
+
+one = threading.Thread(target=send)
+two = threading.Thread(target=recive)
+
+one.start()
+two.start()
