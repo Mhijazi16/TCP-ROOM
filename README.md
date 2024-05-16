@@ -38,6 +38,7 @@ Launches the client application to join the chat room.
 ## Examples 📺
 
 Here's how you can use TCP-ROOM:
+
 https://github.com/Mhijazi16/TCP-ROOM/assets/45119497/d149d439-d42a-439e-a9fb-da842c13a8d3
 
 
