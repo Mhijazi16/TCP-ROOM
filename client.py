@@ -1,28 +1,42 @@
 import socket
 import threading
 
-client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-client.connect(('127.0.0.1',6969))
+# Create a socket object for the client
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-name = input("ENTER NAME :")
+# Connect the client to the server using localhost and port 6969
+client.connect(('127.0.0.1', 6969))
 
-def send(): 
+# Get the user's name
+name = input("ENTER NAME: ")
+
+# Function to send messages to the server
+def send():
     while True:
+        # Get input from the user
         val = input("")
-        if val == "close": 
+        # If user inputs "close", send it to the server to close the connection
+        if val == "close":
             client.send(val.encode('ascii'))
+        # Prepare message with user's name and send it to the server
         message = f"[{name}]: {val}"
         client.send(message.encode('ascii'))
 
-def recive():
-    while True: 
+# Function to receive messages from the server
+def receive():
+    while True:
+        # Receive message from the server
         message = client.recv(1024).decode()
-        if message == "NICK": 
+        # If server requests user's name, send it
+        if message == "NICK":
             client.send(name.encode('ascii'))
+        # Print the received message
         print(message)
 
-one = threading.Thread(target=send)
-two = threading.Thread(target=recive)
+# Create two threads for sending and receiving messages concurrently
+send_thread = threading.Thread(target=send)
+receive_thread = threading.Thread(target=receive)
 
-one.start()
-two.start()
+# Start both threads
+send_thread.start()
+receive_thread.start()
